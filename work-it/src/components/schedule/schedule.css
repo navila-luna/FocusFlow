@@ -1,0 +1,125 @@
+.task-form {
+  margin-bottom: 20px;
+}
+.task-input, .task-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+.task-textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.6;
+}
+.task, .subtask {
+  position: relative;
+  padding: 10px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start; /* Align items to the top */
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.task-content {
+  display: flex;
+  flex-grow: 1; /* Allow content to take up available space */
+  align-items: flex-start;
+  gap: 10px;
+}
+.task-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 10px; /* Reduced padding */
+}
+.task-info strong {
+    margin-bottom: 8px; /* Space between title and description */
+}
+.priorities {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align controls to the right */
+  gap: 10px; /* Space between controls */
+  padding-top: 10px;
+  min-width: 150px; /* Give controls a minimum width */
+}
+.priority-low { color: green; }
+.priority-medium { color: orange; }
+.priority-high { color: red; }
+.task-options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.task-select-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.task-select, .task-status-select  {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+}
+.container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* f */
+.solution-textarea {
+  background-color: #f0f0f0;
+  border: 1px dashed #ccc;
+  min-height: 80px;
+}
+.task-button, .ai-button {
+padding: 10px 15px;
+background-color: #007bffa9;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+margin-top: 5px;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+min-width: 140px;
+justify-content: center;
+height: 40px;
+font-size: 14px;
+line-height: 1;
+}
+.ai-button {
+  background-color: #5275d5;
+}
+.task-button:hover, .ai-button:hover {
+opacity: 0.9;
+}
+
+.task-button:disabled, .ai-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.task-button .material-symbols-outlined,
+.ai-button .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.task-button, .ai-button {
+  box-sizing: border-box;
+}

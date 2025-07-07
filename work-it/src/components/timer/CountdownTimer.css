@@ -1,0 +1,123 @@
+/* CountdownTimer.css */
+.timer-wrapper {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-family: sans-serif;
+  padding: 70px;
+}
+
+.container {
+  text-align: center;
+  font-family: sans-serif;
+  padding: 15px;
+}
+.timer-container {
+  background-color: #8794E4;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  color: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.timer {
+  font-size: 3rem;
+  cursor: pointer;
+  font-family: monospace;
+}
+
+.timer-input {
+  font-size: 3rem;
+  text-align: center;
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  color: white;
+  font-family: monospace;
+}
+
+/* Remove arrows on number inputs for Chrome, Safari, Edge */
+.timer-input::-webkit-outer-spin-button,
+.timer-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows on number inputs for Firefox */
+.timer-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.volume-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  transition: color 0.2s ease;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.option-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #bcbdf8;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #a3a5e1;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.action-button {
+  padding: 12px 24px;
+  margin: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.action-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+.action-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+}
