@@ -11,7 +11,10 @@ function TaskFeatures({
     onDeleteTask,
     onCopyTask,
     onGenerateSubtasks,
-    isGenerating
+    isGenerating,
+    category, // new prop
+    onCategoryChange, // new prop
+    categories = ['Overall', 'Work'] // new prop, default for safety
   }) {
     return (
       <div className="task-options">
@@ -25,6 +28,20 @@ function TaskFeatures({
             <option>In Progress</option>
             <option>Done</option>
           </select>
+          {/* Category Dropdown */}
+          {isMainTask && (
+            <select
+              value={category || 'N/A'}
+              onChange={onCategoryChange}
+              className="task-select"
+              style={{ minWidth: '90px' }}
+            >
+              <option value="N/A">N/A</option>
+              {categories.map((cat) => (
+                cat !== 'N/A' && <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+          )}
   
           {isMainTask && (
             <select

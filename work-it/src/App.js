@@ -4,6 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import TaskForm from "./components/schedule/TaskForm.jsx"; 
 import TaskList from "./components/schedule/TaskList.jsx";
 import CountdownTimer from "./components/timer/timer.js";
+import ToDoCategory from './components/schedule/ToDoCategory.jsx';
 
 function App() {
   const geminiKey = process.env.REACT_APP_GEMINI_API_KEY;
@@ -12,7 +13,13 @@ function App() {
   const loadTasksFromStorage = () => {
     try {
       const savedTasks = localStorage.getItem('workit-tasks');
-      return savedTasks ? JSON.parse(savedTasks) : [];
+      let tasks = savedTasks ? JSON.parse(savedTasks) : [];
+      // Ensure every task has a category
+      tasks = tasks.map(task => ({
+        category: task.category || 'Overall',
+        ...task
+      }));
+      return tasks;
     } catch (error) {
       console.error('Error loading tasks from localStorage:', error);
       return [];
@@ -23,6 +30,32 @@ function App() {
   const [generatingSubtasks, setGeneratingSubtasks] = useState(null);
   const [solvingBlocker, setSolvingBlocker] = useState(null);
   const [saveStatus, setSaveStatus] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Overall');
+  const [categories, setCategories] = useState(['Work']); // Only user categories
+
+  const handleAddCategory = (newCat) => {
+    if (newCat && !categories.includes(newCat.trim())) {
+      setCategories([...categories, newCat.trim()]);
+    }
+  };
+
+  const handleRemoveCategory = (categoryToRemove) => {
+    // Remove the category from the list
+    setCategories(categories.filter(cat => cat !== categoryToRemove));
+    
+    // Set all tasks with this category to 'N/A'
+    setTasks(prevTasks => 
+      prevTasks.map(task => ({
+        ...task,
+        category: task.category === categoryToRemove ? 'N/A' : task.category
+      }))
+    );
+    
+    // If the removed category was selected, switch to 'Overall'
+    if (selectedCategory === categoryToRemove) {
+      setSelectedCategory('Overall');
+    }
+  };
 
   // Save tasks to localStorage whenever tasks change
   const saveTasksToStorage = (updatedTasks) => {
@@ -64,7 +97,7 @@ function App() {
   const addTask = (name, description) => {
     setTasks([
       ...tasks,
-      { name, description, priority: "Medium", completed: false, status: "To Do", subtasks: [], isExpanded: true },
+      { name, description, priority: "Medium", completed: false, status: "To Do", subtasks: [], isExpanded: true, category: "Overall" },
     ]);
   };
 
@@ -324,6 +357,13 @@ function App() {
       <DndProvider backend={HTML5Backend}>
           <div style={{ maxWidth: "600px", margin: "50px auto", padding: "20px" }}>
           <CountdownTimer />
+          <ToDoCategory
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            categories={categories}
+            onAddCategory={handleAddCategory}
+            onRemoveCategory={handleRemoveCategory}
+          />
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h2 style={{textAlign: 'center', margin: 0}}>🗓️ Task Scheduler</h2>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -339,7 +379,8 @@ function App() {
           </div>
           <TaskForm addTask={addTask} clearAllTasks={clearAllTasks} />
           <TaskList
-            tasks={tasks}
+            tasks={selectedCategory === 'Overall' ? tasks : tasks.filter(task => task.category === selectedCategory)}
+            categories={['N/A', ...categories]}
             moveTask={moveTask}
             updatePriority={updatePriority}
             updateTaskStatus={updateTaskStatus}

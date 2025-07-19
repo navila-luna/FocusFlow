@@ -45,6 +45,16 @@
 .task-info strong {
     margin-bottom: 8px; /* Space between title and description */
 }
+.task-description {
+  padding: 16px 20px;
+  border-radius: none;
+  background-color: #f8fafc;
+  margin: 8px 0;
+  display: inline-block;
+  max-width: 100%;
+  word-wrap: break-word;
+  text-align: left;
+}
 .priorities {
   display: flex;
   flex-direction: column;

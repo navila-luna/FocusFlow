@@ -21,7 +21,8 @@ function Task({
   onGenerateSubtasks,
   onSuggestSolution,
   isGenerating,
-  isSolving
+  isSolving,
+  categories = ['Overall', 'Work']
 }) {
   const type = isMainTask ? "TASK" : "SUBTASK";
   const dndRef = useRef(null);
@@ -101,6 +102,13 @@ function Task({
     const subtaskIdx = isMainTask ? null : index;
     updateTaskStatus(taskIdx, newStatus, subtaskIdx);
   };
+
+  const handleCategoryChange = (e) => {
+    const newCategory = e.target.value;
+    if (isMainTask) {
+      onEditTask({ category: newCategory });
+    }
+  };
   
   const completedSubtasks = isMainTask && task.subtasks ? task.subtasks.filter(st => st.completed).length : 0;
   const totalSubtasks = isMainTask && task.subtasks ? task.subtasks.length : 0;
@@ -140,7 +148,7 @@ function Task({
                  )}
                 <strong>{task.name}</strong>
               </div>
-              <small style={{ paddingLeft: isMainTask && totalSubtasks > 0 ? '32px' : '0' }}>{task.description}</small>
+              <small className="task-description" style={{ paddingLeft: isMainTask && totalSubtasks > 0 ? '32px' : '0' }}>{task.description}</small>
               {isMainTask && totalSubtasks > 0 && (
                 <div style={{ marginTop: '10px', fontSize: '0.9em', color: '#555', fontWeight: 'bold', paddingLeft: '32px' }}>
                   {completedSubtasks} of {totalSubtasks} subtasks completed
@@ -194,6 +202,9 @@ function Task({
           onDeleteTask={onDeleteTask}
           onGenerateSubtasks={onGenerateSubtasks}
           isGenerating={isGenerating}
+          category={task.category}
+          onCategoryChange={handleCategoryChange}
+          categories={categories}
         />
       </div>
     </div>

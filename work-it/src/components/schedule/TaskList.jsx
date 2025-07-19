@@ -14,7 +14,8 @@ function TaskList({
   onGenerateSubtasks,
   onSuggestSolution,
   generatingSubtasks,
-  solvingBlocker
+  solvingBlocker,
+  categories = ['Overall', 'Work']
 }) {
   return (
     <div>
@@ -34,6 +35,7 @@ function TaskList({
             onGenerateSubtasks={() => onGenerateSubtasks(index)}
             isGenerating={generatingSubtasks === index}
             isMainTask={true}
+            categories={categories}
           />
           {task.isExpanded && task.subtasks?.length > 0 && (
             <div style={{ marginLeft: 30, marginTop: 10 }}>
@@ -54,6 +56,7 @@ function TaskList({
                   onSuggestSolution={(blockerText) => onSuggestSolution(index, subIndex, blockerText)}
                   isSolving={solvingBlocker && solvingBlocker.taskIndex === index && solvingBlocker.subtaskIndex === subIndex}
                   isMainTask={false}
+                  categories={categories}
                 />
               ))}
             </div>
